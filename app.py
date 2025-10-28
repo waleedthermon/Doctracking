@@ -81,4 +81,56 @@ if not assigned_drawings.empty:
         label="Download as Excel",
         data=assigned_drawings.to_excel(index=False, engine="openpyxl"),
         file_name="your_assignments.xlsx"
+
+
+# Divider
+st.markdown("---")
+
+# Big button for starting a new design
+st.markdown("## 🚀 Start a New Design")
+with st.expander("Click to create a new design", expanded=False):
+    with st.form("start_design_form", clear_on_submit=True):
+        st.subheader("Design Details")
+        
+        # Inputs
+        drawing_number = st.text_input("Drawing Number")
+        drawing_title = st.text_input("Drawing Title")
+        
+        disciplines = [
+            "Heat Tracing ISO", "Panel Schedule", "HT Line list", "Power Plot Plan",
+            "RTD Plot Plan", "Equipment Drawing", "Instrument List", "Installation Details",
+            "Instrument Drawing", "Instrument Detail", "Vessel Tracing", "Others"
+        ]
+        discipline = st.selectbox("Select Discipline", disciplines)
+        
+        documents = st.multiselect("Assign Documents", doc_df["Document no"].unique())
+        
+        submitted = st.form_submit_button("✅ Create Design")
+        
+        if submitted and drawing_number:
+            # Check for revision mismatch
+            selected_docs = doc_df[doc_df["Document no"].isin(documents)]
+            rev_mismatch = selected_docs["Rev No"].nunique() > 1
+            red_flag = "Revision Mismatch" if rev_mismatch else ""
+            
+            # Add new design row
+            new_row = {
+                "Drawing Number": drawing_number,
+                "Drawing Title": drawing_title,
+                "Discipline": discipline,
+                "Documents": ", ".join(documents),
+                "Designer": user,
+                "Drafters": "",
+                "Checker": "",
+                "Lead": "",
+                "Status": "Under Design",
+                "RFI Number": "",
+                "Red Flag": red_flag,
+                "Location": user_location
+            }
+            
+            drawing_df = pd.concat([drawing_df, pd.DataFrame([new_row])], ignore_index=True)
+            drawing_df.to_excel("data/drawing_assignments.xlsx", index=False, engine="openpyxl")
+            
+            st.success(f"✅ Design '{drawing_number}' created successfully!")
     )
