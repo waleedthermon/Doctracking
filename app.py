@@ -81,7 +81,7 @@ if not assigned_drawings.empty:
         label="Download as Excel",
         data=assigned_drawings.to_excel(index=False, engine="openpyxl"),
         file_name="your_assignments.xlsx"
-
+    )
 
 # Divider
 st.markdown("---")
@@ -133,4 +133,3 @@ with st.expander("Click to create a new design", expanded=False):
             drawing_df.to_excel("data/drawing_assignments.xlsx", index=False, engine="openpyxl")
             
             st.success(f"✅ Design '{drawing_number}' created successfully!")
-    )
