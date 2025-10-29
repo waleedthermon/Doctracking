@@ -68,7 +68,7 @@ if search_term:
 st.subheader("Charts")
 status_counts = drawing_df["Current Status"].value_counts().reset_index()
 status_counts.columns = ["Current Status", "Count"]
-st.bar_chart(data=status_counts.set_index("Status"))
+st.bar_chart(data=status_counts.set_index("Current Status"))
 
 designer_counts = drawing_df["Designer"].value_counts().reset_index()
 designer_counts.columns = ["Designer", "Count"]
