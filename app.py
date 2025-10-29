@@ -33,7 +33,7 @@ assigned_drawings = drawing_df[
     (drawing_df["Designer"] == user) |
     (drawing_df["Checker"] == user) |
     (drawing_df["Lead"] == user) |
-    (drawing_df["Drafters"].fillna("").str.contains(user))
+    (drawing_df["Drafter"].fillna("").str.contains(user))
 ]
 
 st.subheader("Your Assigned Projects")
