@@ -49,7 +49,7 @@ if not red_flags.empty:
     st.dataframe(red_flags)
 
 # On-Hold Drawings
-on_hold = assigned_drawings[assigned_drawings["Status"] == "On-Hold for Missing Info"]
+on_hold = assigned_drawings[assigned_drawings["Current Status"] == "On-Hold for Missing Info"]
 if not on_hold.empty:
     st.warning("🛑 Drawings On-Hold for Missing Info")
     st.dataframe(on_hold[["Drawing Number", "RFI Number", "Status"]])
