@@ -95,7 +95,7 @@ with st.form("create_design"):
                 "Assigned To": user,
                 "Assignment Date": datetime.now(),
                 "Comments": "",
-
+            }
 
 # Import New Document List
 st.markdown("## 📥 Import New Document List")
