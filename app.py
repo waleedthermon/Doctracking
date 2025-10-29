@@ -24,7 +24,7 @@ if os.path.exists("data/drawing_assignments.xlsx"):
     drawing_df = pd.read_excel("data/drawing_assignments.xlsx", engine="openpyxl")
 else:
     drawing_df = pd.DataFrame(columns=[
-        "Drawing Number", "Documents", "Designer", "Drafters", "Checker", "Lead",
+        "Drawing Number", "Documents", "Designer", "Drafter", "Checker", "Lead",
         "Status", "RFI Number", "Red Flag", "Location"
     ])
 
