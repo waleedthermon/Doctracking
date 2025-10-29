@@ -74,6 +74,28 @@ designer_counts = drawing_df["Designer"].value_counts().reset_index()
 designer_counts.columns = ["Designer", "Count"]
 st.bar_chart(data=designer_counts.set_index("Designer"))
 
+# Create New Design
+st.header("Create New Design")
+with st.form("create_design"):
+    new_drawing = st.selectbox("Select Document", doc_df["Document no"].unique())
+    new_revision = st.text_input("Enter Revision No", "0")
+    submit_new = st.form_submit_button("Create Design")
+    if submit_new:
+        if new_drawing in assignments_df["Drawing No"].values:
+            st.warning("Drawing already exists in assignments.")
+        else:
+            new_entry = {
+                "Drawing No": new_drawing,
+                "Revision No": new_revision,
+                "Designer": "",
+                "Drafter": "",
+                "Checker": "",
+                "Lead": user if user_role == "Lead" else "",
+                "Current Status": "New",
+                "Assigned To": user,
+                "Assignment Date": datetime.now(),
+                "Comments": "",
+
 
 # Import New Document List
 st.markdown("## 📥 Import New Document List")
