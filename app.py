@@ -109,14 +109,15 @@ if st.button("Create New Design"):
                     "Drawing No": drawing_no,
                     "Revision No": revision_no,
                     "Documents": ", ".join(selected_documents),
-                    "Created By": user,  # Replace with actual logged-in user
+                    "Created By": user,  # Logged-in user
                     "Created On": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "Current Status": "New",
-                    "Assigned To": "",
-                    "Assignment Date": "",
+                    "Assigned To": user,  # ✅ Assign to current user
+                    "Assignment Date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "Comments": "",
                     "Red Flag": ""
-                }
+}
+
                 assignments_df = pd.concat([assignments_df, pd.DataFrame([new_entry])], ignore_index=True)
                 assignments_df.to_excel(assignments_file, index=False)
                 st.success(f"New design '{drawing_no}' with revision '{revision_no}' created successfully.")
